@@ -45,28 +45,32 @@ export default makeStyles(theme => ({
     },
   },
   toolbar: {
-    width: '30%',
+    paddingRight: '1rem',
+    width: '40%',
     whiteSpace: 'nowrap',
+    justifyContent: 'flex-end',
+
     [theme.breakpoints.down('xs')]: {
       width: '100%',
+      justifyContent: 'center',
     },
   },
   profile: {
     display: 'flex',
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-around',
     alignItems: 'center',
     width: '100%',
-    [theme.breakpoints.down('xs')]: {
-      // justifyContent: 'space-between',
-    },
-  },
-  userName: {
-    // display: "flex",
-    // alignItems: "center",
   },
 
   purple: {
     color: theme.palette.getContrastText(deepPurple[500]),
     backgroundColor: deepPurple[500],
+  },
+
+  signin: {
+    justifyContent: 'flex-end',
+    [theme.breakpoints.down('xs')]: {
+      justifyContent: 'center',
+    },
   },
 }));

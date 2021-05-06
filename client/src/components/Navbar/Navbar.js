@@ -1,15 +1,15 @@
-import { useState, useEffect } from "react";
-import { Link, useHistory, useLocation } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import decode from "jwt-decode";
+import { useState, useEffect } from 'react';
+import { Link, useHistory, useLocation } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import decode from 'jwt-decode';
 
-import { AppBar, Avatar, Typography, Toolbar, Button } from "@material-ui/core";
-import useStyles from "./styles";
+import { AppBar, Avatar, Typography, Toolbar, Button } from '@material-ui/core';
+import useStyles from './styles';
 
-import memories from "../../images/memories.png";
+import memories from '../../images/memories.png';
 
 const Navbar = () => {
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
   const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation();
@@ -17,9 +17,9 @@ const Navbar = () => {
   const token = user?.token;
 
   const logout = () => {
-    dispatch({ type: "LOGOUT" });
+    dispatch({ type: 'LOGOUT' });
 
-    history.push("/");
+    history.push('/');
 
     setUser(null);
   };
@@ -31,29 +31,29 @@ const Navbar = () => {
   }
 
   useEffect(() => {
-    setUser(JSON.parse(localStorage.getItem("profile")));
+    setUser(JSON.parse(localStorage.getItem('profile')));
   }, [location]);
 
   return (
-    <AppBar className={classes.appBar} position="static" color="inherit">
+    <AppBar className={classes.appBar} position='static' color='inherit'>
       <div className={classes.brandContainer}>
         <Typography
           component={Link}
-          to="/"
+          to='/'
           className={classes.heading}
-          variant="h2"
-          align="center"
+          variant='h2'
+          align='center'
         >
           Memories
         </Typography>
         <img
           className={classes.image}
           src={memories}
-          alt="memories"
-          height="60"
+          alt='memories'
+          height='60'
         />
       </div>
-      <Toolbar className={classes.toolbar}>
+      <Toolbar className={user ? classes.toolbar : classes.signin}>
         {user ? (
           <div className={classes.profile}>
             <Avatar
@@ -63,13 +63,13 @@ const Navbar = () => {
             >
               {user.result.name.charAt(0)}
             </Avatar>
-            <Typography className={classes.userName} variant="h6">
+            <Typography className={classes.userName} variant='h6'>
               {user.result.name}
             </Typography>
             <Button
-              variant="contained"
+              variant='contained'
               className={classes.logout}
-              color="secondary"
+              color='secondary'
               onClick={logout}
             >
               Logout
@@ -78,9 +78,9 @@ const Navbar = () => {
         ) : (
           <Button
             component={Link}
-            to="/auth"
-            variant="contained"
-            color="primary"
+            to='/auth'
+            variant='contained'
+            color='primary'
           >
             Sign In
           </Button>
