@@ -1,7 +1,6 @@
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 
 import { Container } from '@material-ui/core';
-import useStyles from './styles';
 
 import PostDetails from './components/PostDetails/PostDetails';
 import Navbar from './components/Navbar/Navbar';
@@ -9,12 +8,11 @@ import Home from './components/Home/Home';
 import Auth from './components/Auth/Auth';
 
 const App = () => {
-  const classes = useStyles();
   const user = JSON.parse(localStorage.getItem('profile'));
   return (
     <>
       <BrowserRouter>
-        <Container maxWidth='xl' className={classes.bigContainer}>
+        <Container maxWidth='xl'>
           <Navbar />
           <Switch>
             <Route path='/' exact component={() => <Redirect to='/posts' />} />
