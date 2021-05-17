@@ -1,6 +1,6 @@
-import { useDispatch } from "react-redux";
+import { useDispatch } from 'react-redux';
 
-import useStyles from "./styles";
+import useStyles from './styles';
 import {
   Card,
   CardActions,
@@ -8,59 +8,59 @@ import {
   CardMedia,
   Button,
   Typography,
-} from "@material-ui/core";
-import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
-import ThumbUpAltOutlined from "@material-ui/icons/ThumbUpAltOutlined";
-import DeleteIcon from "@material-ui/icons/Delete";
-import EditIcon from "@material-ui/icons/Edit";
-import moment from "moment";
+} from '@material-ui/core';
+import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
+import ThumbUpAltOutlined from '@material-ui/icons/ThumbUpAltOutlined';
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
+import moment from 'moment';
 
-import { deletePost, likePost } from "../../../actions/posts";
-import DefaultImg from "../../../images/placeholder.png";
+import { deletePost, likePost } from '../../../actions/posts';
+import DefaultImg from '../../../images/placeholder.png';
 
 const Post = ({ post, setCurrentId }) => {
   const dispatch = useDispatch();
   const classes = useStyles();
-  const user = JSON.parse(localStorage.getItem("profile"));
+  const user = JSON.parse(localStorage.getItem('profile'));
 
   const Likes = () => {
     if (post.likes.length > 0) {
       return post.likes.find(
-        (like) => like === (user?.result?.googleId || user?.result?._id)
+        like => like === (user?.result?.googleId || user?.result?._id)
       ) ? (
         <>
-          <ThumbUpAltIcon fontSize="small" />
+          <ThumbUpAltIcon fontSize='small' />
           &nbsp;
           {post.likes.length > 2
             ? `You and ${post.likes.length - 1} others`
-            : `${post.likes.length} like${post.likes.length > 1 ? "s" : ""}`}
+            : `${post.likes.length} like${post.likes.length > 1 ? 's' : ''}`}
         </>
       ) : (
         <>
-          <ThumbUpAltOutlined fontSize="small" />
-          &nbsp;{post.likes.length} {post.likes.length === 1 ? "Like" : "Likes"}
+          <ThumbUpAltOutlined fontSize='small' />
+          &nbsp;{post.likes.length} {post.likes.length === 1 ? 'Like' : 'Likes'}
         </>
       );
     }
 
     return (
       <>
-        <ThumbUpAltOutlined fontSize="small" />
+        <ThumbUpAltOutlined fontSize='small' />
         &nbsp;Like
       </>
     );
   };
 
   return (
-    <Card className={classes.card}>
+    <Card className={classes.card} raised elevation={6}>
       <CardMedia
         className={classes.media}
         image={post.selectedFile || DefaultImg}
         title={post.title}
       />
       <div className={classes.overlay}>
-        <Typography variant="h6">{post.name}</Typography>
-        <Typography variant="body2">
+        <Typography variant='h6'>{post.name}</Typography>
+        <Typography variant='body2'>
           {moment(post.createdAt).fromNow()}
         </Typography>
       </div>
@@ -68,31 +68,31 @@ const Post = ({ post, setCurrentId }) => {
         user?.result?._id === post?.creator) && (
         <div className={classes.overlay2}>
           <Button
-            style={{ color: "white" }}
-            size="small"
+            style={{ color: 'white' }}
+            size='small'
             onClick={() => setCurrentId(post._id)}
           >
-            <EditIcon fontSize="default" />
+            <EditIcon fontSize='default' />
           </Button>
         </div>
       )}
       <div className={classes.details}>
-        <Typography variant="body2" color="textSecondary">
-          {post.tags.map((tag) => `#${tag} `)}
+        <Typography variant='body2' color='textSecondary'>
+          {post.tags.map(tag => `#${tag} `)}
         </Typography>
       </div>
-      <Typography className={classes.title} variant="h5" gutterBottom>
+      <Typography className={classes.title} variant='h5' gutterBottom>
         {post.title}
       </Typography>
       <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p">
+        <Typography variant='body2' color='textSecondary' component='p'>
           {post.message}
         </Typography>
       </CardContent>
       <CardActions className={classes.cardActions}>
         <Button
-          size="small"
-          color="primary"
+          size='small'
+          color='primary'
           disabled={!user?.result}
           onClick={() => dispatch(likePost(post._id))}
         >
@@ -101,11 +101,11 @@ const Post = ({ post, setCurrentId }) => {
         {(user?.result?.googleId === post?.creator ||
           user?.result?._id === post?.creator) && (
           <Button
-            size="small"
-            color="primary"
+            size='small'
+            color='primary'
             onClick={() => dispatch(deletePost(post._id))}
           >
-            <DeleteIcon fontSize="small" />
+            <DeleteIcon fontSize='small' />
             &nbsp; Delete
           </Button>
         )}

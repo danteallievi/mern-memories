@@ -6,7 +6,9 @@ import decode from 'jwt-decode';
 import { AppBar, Avatar, Typography, Toolbar, Button } from '@material-ui/core';
 import useStyles from './styles';
 
-import memories from '../../images/memories.png';
+import memoriesLogo from '../../images/memoriesLogo.png';
+import memoriesText from '../../images/memoriesText.png';
+import * as actionType from '../../constants/actionTypes';
 
 const Navbar = () => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
@@ -17,7 +19,7 @@ const Navbar = () => {
   const token = user?.token;
 
   const logout = () => {
-    dispatch({ type: 'LOGOUT' });
+    dispatch({ type: actionType.LOGOUT });
 
     history.push('/');
 
@@ -36,23 +38,15 @@ const Navbar = () => {
 
   return (
     <AppBar className={classes.appBar} position='static' color='inherit'>
-      <div className={classes.brandContainer}>
-        <Typography
-          component={Link}
-          to='/'
-          className={classes.heading}
-          variant='h2'
-          align='center'
-        >
-          Memories
-        </Typography>
+      <Link to='/' className={classes.brandContainer}>
+        <img alt='icon' height='45px' src={memoriesText} />
         <img
           className={classes.image}
-          src={memories}
+          src={memoriesLogo}
           alt='memories'
-          height='60'
+          height='40px'
         />
-      </div>
+      </Link>
       <Toolbar className={user ? classes.toolbar : classes.signin}>
         {user ? (
           <div className={classes.profile}>
