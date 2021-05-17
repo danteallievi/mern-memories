@@ -5,18 +5,16 @@ import {
   UPDATE,
   DELETE,
   LIKE,
+  START_LOADING,
+  END_LOADING,
 } from '../constants/actionTypes';
 
-export const posts = (state = [], action) => {
+export const posts = (state = { isLoading: true, posts: [] }, action) => {
   switch (action.type) {
-    case DELETE:
-      return state.filter(post => post._id !== action.payload);
-
-    case UPDATE:
-    case LIKE:
-      return state.map(post =>
-        post._id === action.payload._id ? action.payload : post
-      );
+    case START_LOADING:
+      return { ...state, isLoading: true };
+    case END_LOADING:
+      return { ...state, isLoading: false };
 
     case FETCH_ALL:
       return {
@@ -30,7 +28,22 @@ export const posts = (state = [], action) => {
       return { ...state, posts: action.payload };
 
     case CREATE:
-      return [...state, action.payload];
+      return { ...state, posts: [...state.posts, action.payload] };
+
+    case DELETE:
+      return {
+        ...state,
+        posts: state.posts.filter(post => post._id !== action.payload),
+      };
+
+    case UPDATE:
+    case LIKE:
+      return {
+        ...state,
+        posts: state.posts.map(post =>
+          post._id === action.payload._id ? action.payload : post
+        ),
+      };
 
     default:
       return state;
