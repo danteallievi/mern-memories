@@ -49,17 +49,37 @@ const Form = ({ currentId, setCurrentId }) => {
       dispatch(
         updatePost(currentId, { ...postData, name: user?.result?.name })
       );
+      clear();
     } else {
-      if (postData.message === '') {
-        setCreatePostError({ ...createPostError, message: true });
-        setHelperTextError({ ...helperTextError, message: 'Field required' });
+      if (!postData.message || !postData.title || !postData.tags) {
+        if (!postData.tags) {
+          setCreatePostError({ ...createPostError, tags: true });
+          setHelperTextError({
+            ...helperTextError,
+            tags: 'At least one tag in the post is required.',
+          });
+        }
+        if (!postData.message) {
+          setCreatePostError({ ...createPostError, message: true });
+          setHelperTextError({
+            ...helperTextError,
+            message: 'Post message is required.',
+          });
+        }
+        if (!postData.title) {
+          setCreatePostError({ ...createPostError, title: true });
+          setHelperTextError({
+            ...helperTextError,
+            title: 'Post title is required.',
+          });
+        }
       } else {
         dispatch(
           createPost({ ...postData, name: user?.result?.name }, history)
         );
+        clear();
       }
     }
-    clear();
   };
 
   if (!user?.result?.name) {
@@ -79,6 +99,16 @@ const Form = ({ currentId, setCurrentId }) => {
       message: '',
       tags: '',
       selectedFile: '',
+    });
+    setCreatePostError({
+      title: '',
+      message: '',
+      tags: '',
+    });
+    setHelperTextError({
+      title: '',
+      message: '',
+      tags: '',
     });
   };
 
@@ -120,7 +150,8 @@ const Form = ({ currentId, setCurrentId }) => {
           variant='outlined'
           label='Tags'
           required
-          // error={postError.tags}
+          error={createPostError.tags}
+          helperText={helperTextError.tags}
           fullWidth
           value={postData.tags}
           onChange={e =>
