@@ -10,6 +10,7 @@ import { TextField, Button, Typography, Paper } from '@material-ui/core';
 import useStyles from './styles';
 
 import FileBase from 'react-file-base64';
+import ChipInput from 'material-ui-chip-input';
 
 const Form = ({ currentId, setCurrentId }) => {
   const history = useHistory();
@@ -92,6 +93,8 @@ const Form = ({ currentId, setCurrentId }) => {
     );
   }
 
+  const space = ' ';
+
   const clear = () => {
     setCurrentId(null);
     setPostData({
@@ -145,6 +148,7 @@ const Form = ({ currentId, setCurrentId }) => {
           value={postData.message}
           onChange={e => setPostData({ ...postData, message: e.target.value })}
         />
+
         <TextField
           name='tags'
           variant='outlined'
@@ -155,8 +159,13 @@ const Form = ({ currentId, setCurrentId }) => {
           fullWidth
           value={postData.tags}
           onChange={e =>
-            setPostData({ ...postData, tags: e.target.value.split(',') })
+            setPostData({
+              ...postData,
+              tags: e.target.value.split(`,`),
+            })
           }
+
+          //
         />
         <div className={classes.fileInput}>
           <FileBase

@@ -90,7 +90,7 @@ const Home = () => {
                 label='Search Memories'
                 fullWidth
                 value={search}
-                onKeyPress={handleKeyPress}
+                onKeyUp={handleKeyPress}
                 onChange={e => setSearch(e.target.value)}
               />
               <ChipInput
