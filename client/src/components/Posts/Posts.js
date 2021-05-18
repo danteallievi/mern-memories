@@ -15,7 +15,7 @@ const Posts = ({ setCurrentId }) => {
 
   return isLoading ? (
     <div className={classes.circular}>
-      <CircularProgress />
+      <CircularProgress size='7em' />
     </div>
   ) : (
     <Grid

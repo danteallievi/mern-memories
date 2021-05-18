@@ -1,20 +1,36 @@
 import { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+
+// Redux
 import { useDispatch, useSelector } from 'react-redux';
 import { createPost, updatePost } from '../../actions/posts';
 
-import FileBase from 'react-file-base64';
+// Material-ui
 import { TextField, Button, Typography, Paper } from '@material-ui/core';
 import useStyles from './styles';
 
+import FileBase from 'react-file-base64';
+
 const Form = ({ currentId, setCurrentId }) => {
+  const history = useHistory();
   const [postData, setPostData] = useState({
     title: '',
     message: '',
     tags: '',
     selectedFile: '',
   });
+  const [createPostError, setCreatePostError] = useState({
+    title: false,
+    message: false,
+    tags: false,
+  });
+  const [helperTextError, setHelperTextError] = useState({
+    title: '',
+    message: '',
+    tags: '',
+  });
   const post = useSelector(state =>
-    currentId ? state.posts.find(p => p._id === currentId) : null
+    currentId ? state.posts.posts.find(p => p._id === currentId) : null
   );
 
   const dispatch = useDispatch();
@@ -29,13 +45,19 @@ const Form = ({ currentId, setCurrentId }) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-
     if (currentId) {
       dispatch(
         updatePost(currentId, { ...postData, name: user?.result?.name })
       );
     } else {
-      dispatch(createPost({ ...postData, name: user?.result?.name }));
+      if (postData.message === '') {
+        setCreatePostError({ ...createPostError, message: true });
+        setHelperTextError({ ...helperTextError, message: 'Field required' });
+      } else {
+        dispatch(
+          createPost({ ...postData, name: user?.result?.name }, history)
+        );
+      }
     }
     clear();
   };
@@ -75,6 +97,9 @@ const Form = ({ currentId, setCurrentId }) => {
           name='title'
           variant='outlined'
           label='Title'
+          required
+          error={createPostError.title}
+          helperText={helperTextError.title}
           fullWidth
           value={postData.title}
           onChange={e => setPostData({ ...postData, title: e.target.value })}
@@ -83,6 +108,9 @@ const Form = ({ currentId, setCurrentId }) => {
           name='message'
           variant='outlined'
           label='Message'
+          required
+          error={createPostError.message}
+          helperText={helperTextError.message}
           fullWidth
           value={postData.message}
           onChange={e => setPostData({ ...postData, message: e.target.value })}
@@ -91,6 +119,8 @@ const Form = ({ currentId, setCurrentId }) => {
           name='tags'
           variant='outlined'
           label='Tags'
+          required
+          // error={postError.tags}
           fullWidth
           value={postData.tags}
           onChange={e =>
