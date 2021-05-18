@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 
 // Redux
 import { useDispatch } from 'react-redux';
-import { getPosts, getPostsBySearch } from '../../actions/posts';
+import { getPostsBySearch } from '../../actions/posts';
 
 // Components
 import Posts from '../Posts/Posts';
@@ -72,7 +72,6 @@ const Home = () => {
           justify='space-between'
           alignItems='stretch'
           spacing={3}
-          // className={classes.mainContainer}
           className={classes.gridContainer}
         >
           <Grid item xs={12} sm={6} md={9}>

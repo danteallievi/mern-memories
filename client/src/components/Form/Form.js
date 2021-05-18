@@ -10,7 +10,6 @@ import { TextField, Button, Typography, Paper } from '@material-ui/core';
 import useStyles from './styles';
 
 import FileBase from 'react-file-base64';
-import ChipInput from 'material-ui-chip-input';
 
 const Form = ({ currentId, setCurrentId }) => {
   const history = useHistory();
@@ -92,8 +91,6 @@ const Form = ({ currentId, setCurrentId }) => {
       </Paper>
     );
   }
-
-  const space = ' ';
 
   const clear = () => {
     setCurrentId(null);
