@@ -30,8 +30,6 @@ export default makeStyles(theme => ({
   },
   recommendedPosts: {
     display: 'flex',
-    // flexDirection: 'row',
-    // flexFlow: 'row wrap',
     overflowWrap: 'anywhere',
     [theme.breakpoints.down('sm')]: {
       flexDirection: 'column',

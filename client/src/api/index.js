@@ -1,5 +1,4 @@
 import axios from 'axios';
-// https://memories-project-api-mern.herokuapp.com
 const API = axios.create({
   baseURL: 'https://mern-stack-app-memorie.herokuapp.com/',
 });
