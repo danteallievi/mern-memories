@@ -4,10 +4,10 @@ This is a Full-stack application made using React.js, Node.js, Express &amp; Mon
 
 ## Setup
 
-To install the all dependencies run `npm install` or `yarn install` in the client and in the server folder.\
-To start the application run `npm start` or `yarn start` in both folders too.\
-In the SERVER/index.js replace the <b>process.env.CONNECTION_URL</b> with your DB connection string.\
-In the CLIENT/API/index.js replace the baseURL with your backend URL.\
+To install the all dependencies: run `npm install` or `yarn install` in the client and in the server folder.\
+To start the application: run `npm start` or `yarn start` in both folders too.\
+In the SERVER/index.js replace the <i>process.env.CONNECTION_URL</i> with your DB connection string.\
+In the CLIENT/API/index.js replace the <i>baseURL</i> with your backend URL.\
 
 ### Credits
 
